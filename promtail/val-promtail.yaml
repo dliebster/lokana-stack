@@ -53,14 +53,14 @@ data:
       grpc_listen_port: 0
 
     clients:
-    - url: http://loki-gateway/loki/api/v1/push
+    - url: http://loki.willow.net/loki/api/v1/push
 
     positions:
       filename: /tmp/positions.yaml
     target_config:
       sync_period: 10s
     extraScrapeConfigs:
-    - job_name: journal
+    - job_name: monero
       journal:
         path: /var/log/monero
         max_age: 12h

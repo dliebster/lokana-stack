@@ -12,17 +12,17 @@ metadata:
 spec:
   ingressClassName: traefik
   rules:
-  - host: loki.willow.net
+  - host: grafana.willow.net
     http:
       paths:
       - backend:
           service:
-            name: loki-gateway
+            name: grafana
             port:
               number: 80
         path: /
         pathType: Prefix
   tls:
   - hosts:
-    - loki.willow.net
-    secretName: loki-tls
+    - grafana.willow.net
+    secretName: grafana-tls

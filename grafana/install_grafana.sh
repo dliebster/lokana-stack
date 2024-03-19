@@ -1,1 +1,1 @@
-helm install grafana grafana/grafana --namespace monitoring
+helm install grafana grafana/grafana --namespace monitoring -f val-grafana.yaml
