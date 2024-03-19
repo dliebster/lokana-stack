@@ -1,0 +1,9 @@
+loki:
+  commonConfig:
+    replication_factor: 1
+  config: |
+    auth_enabled: false 
+  storage:
+    type: 'filesystem'
+singleBinary:
+  replicas: 1

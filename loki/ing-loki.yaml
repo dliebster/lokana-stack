@@ -1,0 +1,28 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    kubernetes.io/ingress.class: traefik
+    kubernetes.io/tls-acme: "true"
+    spec.ingressClassName: traefik
+    traefik.ingress.kubernetes.io/router.middlewares: default-redirect-https@kubernetescrd
+  name: loki
+  namespace: grafana
+spec:
+  ingressClassName: traefik
+  rules:
+  - host: loki.willow.net
+    http:
+      paths:
+      - backend:
+          service:
+            name: loki-gateway
+            port:
+              number: 80
+        path: /
+        pathType: Prefix
+  tls:
+  - hosts:
+    - loki.willow.net
+    secretName: loki-tls

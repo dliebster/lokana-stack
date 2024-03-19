@@ -1,0 +1,1 @@
+helm install grafana grafana/grafana --namespace monitoring

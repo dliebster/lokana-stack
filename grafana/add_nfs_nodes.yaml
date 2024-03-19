@@ -1,0 +1,12 @@
+- name: Transfer and install xmrig.
+  hosts: monero
+  become: true
+  remote_user: ubuntu
+  become_method: ansible.builtin.sudo
+
+  tasks:
+
+    - name: Add msr-tools for xmrig randomx-tuning script
+      ansible.builtin.apt:
+        name: nfs-common
+        state: present

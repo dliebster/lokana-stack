@@ -1,0 +1,41 @@
+config:
+  snippets:
+    extraScrapeConfigs: |
+      # Add an additional scrape config for syslog
+      - job_name: journal
+        journal:
+          path: /var/log/monero
+          max_age: 12h
+          labels:
+            job: smonero-logs
+        relabel_configs:
+          - source_labels:
+              - __monero__hostname
+            target_label: hostname
+
+          # example label values: kubelet.service, containerd.service
+          - source_labels:
+              - __monero__systemd_unit
+            target_label: unit
+
+          # example label values: debug, notice, info, warning, error
+          - source_labels:
+              - __monero_priority_keyword
+            target_label: level
+
+# Mount journal directory and machine-id file into promtail pods
+extraVolumes:
+  - name: monero
+    hostPath:
+      path: /var/log/monero
+  - name: machine-id
+    hostPath:
+      path: /etc/machine-id
+
+extraVolumeMounts:
+  - name: monero
+    mountPath: /var/log/monero
+    readOnly: true
+  - name: machine-id
+    mountPath: /etc/machine-id
+    readOnly: true
